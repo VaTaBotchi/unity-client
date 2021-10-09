@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class OutData
@@ -32,6 +33,13 @@ public class InData
 [Serializable]
 public class ItemData : InData
 {
-    public string itemName;
+    public string name;
+    public bool enabled;
+}
+
+[Serializable]
+public class EmotionData : InData
+{
+    public string name;
     public bool enabled;
 }

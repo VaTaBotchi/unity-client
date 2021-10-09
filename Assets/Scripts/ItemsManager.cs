@@ -7,7 +7,7 @@ using Utility;
 [Serializable]
 public class DinoItem
 {
-    public string itemName;
+    public string name;
     public GameObject itemObject;
     public Material itemMaterial;
     public ItemType itemType;
@@ -67,12 +67,6 @@ public class ItemsManager : Singleton<ItemsManager>
             dinoSkin.material = FindItem(savedSkin).itemMaterial;
         }
 
-        var savedFace = ItemSettings.GetItemSetting(ItemType.Face);
-        if (!string.IsNullOrEmpty(savedFace))
-        {
-            dinoFace.material = FindItem(savedFace).itemMaterial;
-        }
-
         var savedMoustache = ItemSettings.GetItemSetting(ItemType.Moustache);
         moustache.itemObject.SetActive(!string.IsNullOrEmpty(savedMoustache));
     }
@@ -102,13 +96,12 @@ public class ItemsManager : Singleton<ItemsManager>
     private void SetSkin(DinoItem skin, bool itemEnabled)
     {
         dinoSkin.material = itemEnabled ? skin.itemMaterial : defaultSkinItem.itemMaterial;
-        ItemSettings.SetItemSetting(ItemType.Skin, skin.itemName);
+        ItemSettings.SetItemSetting(ItemType.Skin, skin.name);
     }
     
     private void SetFace(DinoItem face, bool itemEnabled)
     {
         dinoFace.material = itemEnabled ? face.itemMaterial : defaultFaceItem.itemMaterial;
-        ItemSettings.SetItemSetting(ItemType.Face, face.itemName);
     }
 
     private void SetHat(DinoItem hat, bool itemEnabled)
@@ -120,7 +113,7 @@ public class ItemsManager : Singleton<ItemsManager>
         if (!itemEnabled) return;
         
         hat.itemObject.SetActive(true);
-        ItemSettings.SetItemSetting(ItemType.Hat, hat.itemName);
+        ItemSettings.SetItemSetting(ItemType.Hat, hat.name);
     }
 
     private void SetMoustache(bool itemEnabled)
@@ -131,7 +124,7 @@ public class ItemsManager : Singleton<ItemsManager>
 
     private DinoItem FindItem(string itemName)
     {
-        foreach (var item in _allItems.Where(item => item.itemName == itemName))
+        foreach (var item in _allItems.Where(item => item.name == itemName))
         {
             return item;
         }

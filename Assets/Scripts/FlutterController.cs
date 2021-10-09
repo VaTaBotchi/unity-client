@@ -14,7 +14,19 @@ public class FlutterController : Singleton<FlutterController>
         }
 
         var itemData = JsonUtility.FromJson<ItemData>(inData);
-        ItemsManager.Instance.SetItem(itemData.itemName, itemData.enabled);
+        ItemsManager.Instance.SetItem(itemData.name, itemData.enabled);
+    }
+
+    public void SetEmotion(string inData)
+    {
+        if (string.IsNullOrEmpty(inData))
+        {
+            SendUnexpectedError(MethodBase.GetCurrentMethod().Name, "Input string is null or empty");
+            return;
+        }
+
+        var emotionData = JsonUtility.FromJson<EmotionData>(inData);
+        DinoEmotions.Instance.SetDinoEmotion(emotionData.name, emotionData.enabled);
     }
     
     private static void SendUnexpectedError(string methodName, string info)

@@ -16,5 +16,12 @@ internal class FlutterImitationEditor : Editor
         }
 
         GUILayout.Space(25f);
+        
+        myTarget.emotionName = EditorGUILayout.TextField("Emotion name:", myTarget.emotionName);
+        myTarget.emotionEnabled = EditorGUILayout.Toggle("Emotion enabled: ", myTarget.emotionEnabled);
+        if (GUILayout.Button("Set emotion data"))
+        {
+            myTarget.SetEmotionData();
+        }
     }
 }
