@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utility;
 
 [Serializable]
 public class DinoItem
@@ -12,18 +13,20 @@ public class DinoItem
     public ItemType itemType;
 }
 
-public class ItemsManager : MonoBehaviour
+public class ItemsManager : Singleton<ItemsManager>
 {
     [Header("Skins")]
     [SerializeField] private SkinnedMeshRenderer dinoSkin;
     [SerializeField] private DinoItem[] skins;
     [SerializeField] private string defaultSkin;
+    private DinoItem defaultSkinItem;
     
     [Header("Emotions")] 
     [SerializeField] private SkinnedMeshRenderer dinoFace;
     [SerializeField] private DinoItem[] faces;
     [SerializeField] private string defaultFace;
-    
+    private DinoItem defaultFaceItem;
+
     [Header("Items")]
     [SerializeField] private DinoItem[] hats;
     [SerializeField] private DinoItem moustache;
@@ -46,8 +49,10 @@ public class ItemsManager : MonoBehaviour
         moustache.itemObject.SetActive(false);
         
         // Set default skin
-        dinoSkin.material = FindItem(defaultSkin).itemMaterial;
-        dinoFace.material = FindItem(defaultFace).itemMaterial;
+        defaultSkinItem = FindItem(defaultSkin);
+        dinoSkin.material = defaultSkinItem.itemMaterial;
+        defaultFaceItem = FindItem(defaultFace);
+        dinoFace.material = defaultFaceItem.itemMaterial;
         
         // Load items from player prefs
         var savedHat = ItemSettings.GetItemSetting(ItemType.Hat);
@@ -94,24 +99,34 @@ public class ItemsManager : MonoBehaviour
         }
     }
 
-    private void SetSkin(DinoItem skin, bool enabled)
+    private void SetSkin(DinoItem skin, bool itemEnabled)
     {
-        
+        dinoSkin.material = itemEnabled ? skin.itemMaterial : defaultSkinItem.itemMaterial;
+        ItemSettings.SetItemSetting(ItemType.Skin, skin.itemName);
     }
     
-    private void SetFace(DinoItem face, bool enabled)
+    private void SetFace(DinoItem face, bool itemEnabled)
     {
-        
+        dinoFace.material = itemEnabled ? face.itemMaterial : defaultFaceItem.itemMaterial;
+        ItemSettings.SetItemSetting(ItemType.Face, face.itemName);
     }
 
-    private void SetHat(DinoItem hat, bool enabled)
+    private void SetHat(DinoItem hat, bool itemEnabled)
     {
+        foreach (var t in hats)
+        {
+            t.itemObject.SetActive(false);
+        }
+        if (!itemEnabled) return;
         
+        hat.itemObject.SetActive(true);
+        ItemSettings.SetItemSetting(ItemType.Hat, hat.itemName);
     }
 
-    private void SetMoustache(bool enabled)
+    private void SetMoustache(bool itemEnabled)
     {
-        
+        moustache.itemObject.SetActive(itemEnabled);
+        ItemSettings.SetItemSetting(ItemType.Moustache, itemEnabled ? "1" : "0");
     }
 
     private DinoItem FindItem(string itemName)

@@ -916,6 +916,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 741418961}
+  - component: {fileID: 741418962}
   m_Layer: 0
   m_Name: FlutterImitation
   m_TagString: Untagged
@@ -937,6 +938,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &741418962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741418960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd7f840acffb422bbabe2ece5dd7c4ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: 
+  itemEnabled: 0
 --- !u!1001 &748803721
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1144,8 +1159,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 823974725}
+  - component: {fileID: 823974726}
   m_Layer: 0
-  m_Name: FlutterManager
+  m_Name: FlutterController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1165,6 +1181,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &823974726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823974724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa9951a5a344a76b7294bb857642211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &977917353
 PrefabInstance:
   m_ObjectHideFlags: 0
