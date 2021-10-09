@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utility;
 
@@ -16,23 +18,27 @@ public class DinoEmotions : Singleton<DinoEmotions>
     [SerializeField] private DinoEmotion defaultEmotion;
 
     private Animator animator;
+    private readonly List<DinoEmotion> allEmotions = new List<DinoEmotion>();
     private static readonly int StateId = Animator.StringToHash("animation");
 
     private void Start()
     {
+        allEmotions.AddRange(emotions);
+        allEmotions.Add(defaultEmotion);
+        
         animator = GetComponent<Animator>();
         SetAnimatorState(defaultEmotion.animationState);
         ItemsManager.Instance.SetItem(defaultEmotion.faceName, true);
     }
 
-    public void SetDinoEmotion(string emotionName, bool enabled)
+    public void SetDinoEmotion(string emotionName, bool emotionEnabled)
     {
         var newEmotion = defaultEmotion;
-        if (enabled)
+        if (emotionEnabled)
         {
-            foreach (var emotion in emotions)
+            foreach (var emotion in allEmotions.Where(emotion => emotion.name == emotionName))
             {
-                if (emotion.name == emotionName) newEmotion = emotion;
+                newEmotion = emotion;
             }
         }
         

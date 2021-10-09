@@ -43,3 +43,9 @@ public class EmotionData : InData
     public string name;
     public bool enabled;
 }
+
+[Serializable]
+public class CameraData : InData
+{
+    public string name;
+}

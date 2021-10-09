@@ -23,5 +23,13 @@ internal class FlutterImitationEditor : Editor
         {
             myTarget.SetEmotionData();
         }
+        
+        GUILayout.Space(25f);
+        
+        myTarget.cameraStateName = EditorGUILayout.TextField("Camera state:", myTarget.cameraStateName);
+        if (GUILayout.Button("Set camera data"))
+        {
+            myTarget.SetCameraState();
+        }
     }
 }

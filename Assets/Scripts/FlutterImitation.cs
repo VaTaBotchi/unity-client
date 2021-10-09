@@ -6,6 +6,7 @@ public class FlutterImitation : MonoBehaviour
     public bool itemEnabled;
     public string emotionName;
     public bool emotionEnabled;
+    public string cameraStateName;
     
     private int _currentId;
     
@@ -37,5 +38,19 @@ public class FlutterImitation : MonoBehaviour
 
         var outData = JsonUtility.ToJson(emotionData);
         FlutterController.Instance.SetEmotion(outData);
+    }
+
+    public void SetCameraState()
+    {
+        _currentId++;
+
+        var cameraData = new CameraData()
+        {
+            id = _currentId,
+            name = cameraStateName
+        };
+
+        var outData = JsonUtility.ToJson(cameraData);
+        FlutterController.Instance.SetCameraState(outData);
     }
 }
