@@ -68,7 +68,7 @@ public class ItemsManager : Singleton<ItemsManager>
         }
 
         var savedMoustache = ItemSettings.GetItemSetting(ItemType.Moustache);
-        moustache.itemObject.SetActive(!string.IsNullOrEmpty(savedMoustache));
+        moustache.itemObject.SetActive(savedMoustache == "1");
     }
 
     public void SetItem(string name, bool enabled)
@@ -96,7 +96,7 @@ public class ItemsManager : Singleton<ItemsManager>
     private void SetSkin(DinoItem skin, bool itemEnabled)
     {
         dinoSkin.material = itemEnabled ? skin.itemMaterial : defaultSkinItem.itemMaterial;
-        ItemSettings.SetItemSetting(ItemType.Skin, skin.name);
+        ItemSettings.SetItemSetting(ItemType.Skin, itemEnabled ? skin.name : string.Empty);
     }
     
     private void SetFace(DinoItem face, bool itemEnabled)
@@ -110,10 +110,9 @@ public class ItemsManager : Singleton<ItemsManager>
         {
             t.itemObject.SetActive(false);
         }
-        if (!itemEnabled) return;
-        
-        hat.itemObject.SetActive(true);
-        ItemSettings.SetItemSetting(ItemType.Hat, hat.name);
+
+        hat.itemObject.SetActive(itemEnabled);
+        ItemSettings.SetItemSetting(ItemType.Hat, itemEnabled ? hat.name : string.Empty);
     }
 
     private void SetMoustache(bool itemEnabled)

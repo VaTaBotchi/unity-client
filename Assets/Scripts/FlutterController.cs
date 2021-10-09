@@ -5,6 +5,8 @@ using Utility;
 
 public class FlutterController : Singleton<FlutterController>
 {
+    private int _currentId = 0;
+    
     public void SetItem(string inData)
     {
         if (string.IsNullOrEmpty(inData))
@@ -39,6 +41,13 @@ public class FlutterController : Singleton<FlutterController>
         
         var cameraData = JsonUtility.FromJson<EmotionData>(inData);
         CameraManager.Instance.SetCameraState(cameraData.name);
+    }
+
+    public void SendTickle()
+    {
+        _currentId++;
+        var data = new OutData(_currentId, Result.Success, "TickleFinished", "tickle finished");
+        SendMessageToFlutter(data);
     }
     
     private static void SendUnexpectedError(string methodName, string info)
