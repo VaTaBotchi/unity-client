@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class FlutterImitation : MonoBehaviour
 {
@@ -7,16 +8,31 @@ public class FlutterImitation : MonoBehaviour
     public string emotionName;
     public bool emotionEnabled;
     public string cameraStateName;
+
+    private int currentId;
     
-    private int _currentId;
+    private readonly List<string> itemNames = new List<string>()
+    {
+        "hat-crown", "hat-cowboy", "hat-magician", "hat-shower", "hat-viking"
+    };
+    private readonly List<string> skinNames = new List<string>()
+    {
+        "skin-blue", "skin-red", "skin-yellow"
+    };
+    private readonly List<string> faceNames = new List<string>()
+    {
+        "face-sick", "face-dead", "face-money", "face-closed", "face-love"
+    };
     
+    static System.Random random = new System.Random();
+
     public void SetItemData()
     {
-        _currentId++;
+        currentId++;
         
         var itemData = new ItemData()
         {
-            id = _currentId,
+            id = currentId,
             name = itemName,
             enabled = itemEnabled
         };
@@ -27,11 +43,11 @@ public class FlutterImitation : MonoBehaviour
 
     public void SetEmotionData()
     {
-        _currentId++;
+        currentId++;
 
         var emotionData = new EmotionData()
         {
-            id = _currentId,
+            id = currentId,
             name = emotionName,
             enabled = emotionEnabled
         };
@@ -40,13 +56,48 @@ public class FlutterImitation : MonoBehaviour
         FlutterController.Instance.SetEmotion(outData);
     }
 
+    public void RandomLook()
+    {
+        currentId++;
+        
+        var itemData = new ItemData()
+        {
+            id = currentId,
+            name = itemNames[random.Next(itemNames.Count)],
+            enabled = true
+        };
+
+        var outItemData = JsonUtility.ToJson(itemData);
+        FlutterController.Instance.SetItem(outItemData);
+        
+        var skinData = new ItemData()
+        {
+            id = currentId,
+            name = skinNames[random.Next(skinNames.Count)],
+            enabled = true
+        };
+
+        var outSkinData = JsonUtility.ToJson(skinData);
+        FlutterController.Instance.SetItem(outSkinData);
+        
+        var faceData = new ItemData()
+        {
+            id = currentId,
+            name = faceNames[random.Next(faceNames.Count)],
+            enabled = true
+        };
+
+        var outFaceData = JsonUtility.ToJson(faceData);
+        FlutterController.Instance.SetItem(outFaceData);
+    }
+
     public void SetCameraState()
     {
-        _currentId++;
+        currentId++;
 
         var cameraData = new CameraData()
         {
-            id = _currentId,
+            id = currentId,
             name = cameraStateName
         };
 

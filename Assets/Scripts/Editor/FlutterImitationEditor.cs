@@ -26,6 +26,13 @@ internal class FlutterImitationEditor : Editor
         
         GUILayout.Space(25f);
         
+        if (GUILayout.Button("ALL RANDOM"))
+        {
+            myTarget.RandomLook();
+        }
+        
+        GUILayout.Space(25f);
+        
         myTarget.cameraStateName = EditorGUILayout.TextField("Camera state:", myTarget.cameraStateName);
         if (GUILayout.Button("Set camera data"))
         {
